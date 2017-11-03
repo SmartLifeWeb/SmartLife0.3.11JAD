@@ -5,50 +5,50 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="../../CSS/EstilosRegistrarte.css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat+Alternates|Overpass|Raleway" rel="stylesheet">
-        <script src=""></script>
-    </head>
-        <body>
-            <div class="general">
-                <div class="contenido">
-                    <p> ¡Únete a nosotros!</p>
-                    <hr>
-                    <br>
-                    <form action="/SmartLifeWeb/ServletRegistro" method="Get">
-                        <input class="text" type="text" placeholder="Nombre" name="nombre"  onkeypress="return Letras(event);" required/>
-                        <br><br>
-                        <input class="text" type="text" placeholder="Apellido paterno" name="a_paterno"  onkeypress="return Letras(event);" required/>
-                        <br><br>
-                        <input class="text" type="text" placeholder="Apellido Materno" name="a_materno"  onkeypress="return Letras(event);" required/>
-                        <br><br>
-                        <input class="text" type="text" placeholder="Usuario" name="user"   required/>
-                        <br><br>
-                        <input class="text" type="text" placeholder="Correo Electronico" name="correo"   required/>
-                        <br><br>
-                        <input class="text" type="text" placeholder="Telefono" name="telefono"  onkeypress="return Numeros(event);" required/>
-                        <br><br>
-                        <input class="text" type="password" id="Contra" placeholder="Contraseña" name="contrasena" maxlength="8" onkeypress="return Letras(event);" required/>
-                        <br><br>
-                        <input class="text" type="password" id="Confirmar" placeholder="Confirmar contraseña" maxlength="8" onkeypress="return Letras2(event);" required/>
-                        <br><br>
-                        <select name="rol" id="rol" onchange="Revisa()" >
-                            <option>Rol</option>
-                            <option value="1">Profesionista</option>
-                            <option value="2">Estudiante</option>
-                        </select><br><br>
-                         
-                        <br>
+        <script type="text/javascript" src="../../script/ValidacionFormulario.js"></script>
 
-                        <input type="submit"  class="Registrar" name="registra"> 
-                    </form>
-                    <div>
+    </head>
+    <body>
+        <div class="general">
+            <div class="contenido">
+                <p> ¡Únete a nosotros!</p>
+                <hr>
+                <br>
+                <form action="/SmartLifeWeb/ServletRegistro" method="GET">
+                    <input class="text" type="text" placeholder="Nombre" name="nombre" id="nombre" maxlength="40" onkeypress="return ValidNombre(event)" oninput="validLong(this)" required/>
+                    <br><br>
+                    <input class="text" type="text" placeholder="Apellido paterno" name="a_paterno" id="apat" maxlength="25"  onkeypress="return apellidos(event)" oninput="validLong(this)" required/>
+                    <br><br>
+                    <input class="text" type="text" placeholder="Apellido Materno" name="a_materno" id="amat" maxlength="25"  onkeypress="return apellidos(event)" oninput="validLong(this)" required/>
+                    <br><br>
+                    <input class="text" type="text" placeholder="Usuario" name="user" id="user" maxlength="25" onkeypress="return ValidUser(event)" oninput="validLong(this)" required/>
+                    <br><br>
+                    <input class="text" type="text" placeholder="Correo Electronico" name="correo" id="email" maxlength="75" oninput="ValidEmail(this)"  required/>
+                    <br><br>
+                    <input class="text" type="text" placeholder="Telefono" name="telefono" id="tel" maxlength="15"  onkeypress="return Numeros(event)" oninput="validLong(this)" required/>
+                    <br><br>
+                    <input class="text" type="password" id="Contra" placeholder="Contraseña" name="contrasena" maxlength="25" oninput="validLong(this)" required/>
+                    <br><br>
+                    <input class="text" type="password" id="Confirmar" placeholder="Confirmar contraseña" maxlength="25" oninput="ValidPass(this)" required/>
+                    <br><br>
+                    <select name="rol" id="rol">
+                        <option value="1">Profesionista</option>
+                        <option value="2">Estudiante</option>
+                    </select><br><br>
+
+                    <br>
+
+                    <input type="submit"  class="Registrar" name="registra" onclick="validTodo(this)"> 
+                </form>
+                <div>
                     <br>
                     <br>
                     <p class="befound">Al registrarte, aceptas las <a href="google.com" class="legal-link">Condiciones de Servicio y la Politicas de Privacidad</a>.</p>
-                     </div>
-
-                    
                 </div>
-            </div>
 
-        </body>
-    </html>
+
+            </div>
+        </div>
+
+    </body>
+</html>

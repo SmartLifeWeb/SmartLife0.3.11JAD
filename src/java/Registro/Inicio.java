@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.servlet;
+package Registro;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -50,7 +50,7 @@ public class Inicio extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
     }
 
     /**
@@ -65,11 +65,9 @@ public class Inicio extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-
-        out.print("<script> alert(Hola) </script>");
         String usuario = request.getParameter("user");
         String contraseña = request.getParameter("contra");
         //Variables de conexion
@@ -93,7 +91,14 @@ public class Inicio extends HttpServlet {
             /**
              * Buscamo en la base los datos del usuario
              */
-            rs = sta.executeQuery("SELECT idUsuario,contraseña,Nombre FROM usuario WHERE idUsuario ='" + usuario + "'");
+            if (usuario.equals("") && contraseña.equals("")) {
+                out.println("<script> alert('Usuario y/o contraseña incorrectos'); </script>");
+                out.println("<script>location.replace('/SmartLifeWeb/Modulos/InicioSesion/Ingresar.html');</script>");
+                con.close();
+            } else {
+                rs = sta.executeQuery("SELECT idUsuario,contraseña,Nombre FROM usuario WHERE idUsuario ='" + usuario + "'");
+            }
+
             /**
              *
              */
@@ -104,34 +109,17 @@ public class Inicio extends HttpServlet {
             }
             if (contraseña.equals(contra) && usuario.equals(user)) {
                 request.setAttribute("Nombre", nombre);
-                request.getRequestDispatcher("/casca.jsp").forward(request, response);
+                request.getRequestDispatcher("/cascaron.jsp").forward(request, response);
+                con.close();
             } else {
-                out.print("<script> alert(Usuario y contraseña incorrectos) </script>");
+                out.println("<script> alert('Usuario y/o contraseña incorrectos'); </script>");
+                out.println("<script>location.replace('/SmartLifeWeb/Modulos/InicioSesion/Ingresar.html');</script>");
+                con.close();
             }
         } catch (SQLException error) {
             out.print(error.toString());
         }
-        try {
-            /**
-             * Cerramos la conexión
-             */
-            con.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
-        
-        
-        
-        
-        
-        
-        
     }
 
     /**

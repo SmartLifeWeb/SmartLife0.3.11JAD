@@ -6,11 +6,11 @@
     </servlet>
     <servlet>
         <servlet-name>Cambios</servlet-name>
-        <servlet-class>com.servlet.Cambios</servlet-class>
+        <servlet-class>Registro.Cambios</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Inicio</servlet-name>
-        <servlet-class>com.servlet.Inicio</servlet-class>
+        <servlet-class>Registro.Inicio</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Registro</servlet-name>

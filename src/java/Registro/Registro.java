@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.servlet;
+package Registro;
 
 import java.io.*;
 import java.sql.*;
@@ -54,8 +54,6 @@ public class Registro extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        out.println("<script> alert('Hola') </script>");
-
         String usuario = request.getParameter("user");
         String avt = "1";
         String nombre = request.getParameter("nombre");
@@ -82,12 +80,10 @@ public class Registro extends HttpServlet {
         }
 
         try {
-
             sta.executeUpdate("INSERT INTO usuario VALUES('" + usuario + "','" + avt + "','" + rol + "','" + nombre + "','" + apaterno + "','" + amaterno + "','" + tel + "','" + email + "','" + pass + "','" + likes + "');");
-            out.println("<script> alert('Registro dado de alta exitosamente.') </script>");
             con.close();
-            response.sendRedirect("http://localhost:8084/SmartLifeWeb/Modulos/InicioSesion/Registrarte.html");
-
+            out.println("<script> alert('Registro exitoso') </script>");
+            out.println("<script>location.replace('/SmartLifeWeb/Modulos/InicioSesion/Registrarte.html');</script>");
         } catch (Exception error) {
             out.print(error.toString());
             out.println("<script> alert('Mal') </script>");
