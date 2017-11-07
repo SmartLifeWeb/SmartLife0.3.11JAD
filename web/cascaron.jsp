@@ -12,7 +12,28 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet"  type="text/css" href="CSS/casacaron.css">
-	<script type="text/javascript" src="cascaron.js"></script>
+        <script type="text/javascript" src="cascaron.js"></script>
+        <script>
+            <%
+                HttpSession sesion = request.getSession();
+                String Usuario = (String) sesion.getAttribute("idUsuario");
+
+                if (Usuario == null) {
+                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                } else {
+                    
+                    
+                }
+                
+
+            %>
+
+
+        </script>
+        
+
+
+
     </head>
     <body>
         <div class="contenedor">	
@@ -39,7 +60,8 @@
                 <p>	Cine </p>
                 <p>	Generador de ideas </p>
                 <p>	Tareas </p>
-                <p>	Agenda compartida </p>
+                <p>	Chat </p>
+                <p><a href="Modulos/InicioSesion/CerrarSesion.jsp">Cerrar Sesión</a></p>
 
             </div>
 

@@ -5,6 +5,7 @@
  */
 package Registro;
 
+import BD.cBD;
 import java.io.*;
 import java.sql.*;
 import java.io.IOException;
@@ -35,7 +36,7 @@ public class Registro extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) {   
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) {
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -53,7 +54,8 @@ public class Registro extends HttpServlet {
         processRequest(request, response);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-
+        cBD conexion = new cBD();
+        String existe ="";
         String usuario = request.getParameter("user");
         String avt = "1";
         String nombre = request.getParameter("nombre");
@@ -67,34 +69,28 @@ public class Registro extends HttpServlet {
         String likes = "0";
 
         Connection con = null;
-        Statement sta = null;
-
         try {
-
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            con = DriverManager.getConnection("jdbc:mysql://localhost/smartdatabase", "root", "n0m3l0");
-            sta = con.createStatement();
+            con = conexion.conectar();
         } catch (Exception error) {
             out.println("<script> alert('No conec') </script>");
             out.print(error.toString() + "no conecto");
         }
 
         try {
-            sta.executeUpdate("INSERT INTO usuario VALUES('" + usuario + "','" + avt + "','" + rol + "','" + nombre + "','" + apaterno + "','" + amaterno + "','" + tel + "','" + email + "','" + pass + "','" + likes + "');");
-            con.close();
-            out.println("<script> alert('Registro exitoso') </script>");
-            out.println("<script>location.replace('/SmartLifeWeb/Modulos/InicioSesion/Registrarte.html');</script>");
+            existe = conexion.Registrar(con, usuario, avt, rol, nombre, apaterno, amaterno, tel, email, pass, likes);
+            if (existe.equals("no")) {
+                out.println("<script> alert('Registro exitoso')</script>");
+                out.println("<script>location.replace('/SmartLifeWeb/Modulos/InicioSesion/Registrarte.html');</script>");
+            } else if(existe.equals("si")){
+                out.println("<script> alert('Este nombre de usuario ya existe')</script>");
+                out.println("<script>location.replace('/SmartLifeWeb/Modulos/InicioSesion/Registrarte.html');</script>");
+                
+            }
         } catch (Exception error) {
             out.print(error.toString());
             out.println("<script> alert('Mal') </script>");
 
         }
-        try {
-            con.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
     }
 
     /**

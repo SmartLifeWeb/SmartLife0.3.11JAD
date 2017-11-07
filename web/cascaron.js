@@ -1,6 +1,6 @@
 
 
-var modulos = ["Modulos/Social/foro.html","Modulos/Agenda/agenda.html","Modulos/Social/agendaCompartida.html","Modulos/Entretenimiento/cine.html","Modulos/Generador de ideas/genereadorIdeas.html","Modulos/Entretenimiento/musica.html","Modulos/Tareas/tareas.html"];
+var modulos = ["Modulos/Social/foro.html","Modulos/Agenda/agenda2.jsp","Modulos/Social/agendaCompartida.html","Modulos/Entretenimiento/cine.html","Modulos/Generador de ideas/genereadorIdeas.html","Modulos/Entretenimiento/musica.html","Modulos/Tareas/tareas.html"];
 var cuenta=0;
 function carruceli() {
 	cuenta=cuenta-1;

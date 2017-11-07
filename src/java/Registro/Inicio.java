@@ -5,6 +5,7 @@
  */
 package Registro;
 
+import BD.cBD;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -18,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -65,59 +67,55 @@ public class Inicio extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+
         String usuario = request.getParameter("user");
         String contraseña = request.getParameter("contra");
         //Variables de conexion
+        cBD conexion = new cBD();
         Connection con = null;
         Statement sta = null;
         ResultSet rs = null;
         String user = "", contra = "", nombre = "";
+        
 
-        /* TODO output your page here. You may use following sample code. */
         try {
-            /**
-             * Creamos la conexión con la bae de datos
-             */
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            con = DriverManager.getConnection("jdbc:mysql://localhost/smartdatabase", "root", "n0m3l0");
+            con = conexion.conectar();
             sta = con.createStatement();
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException error) {
-            out.print(error.toString() + "no conecto");
+        } catch (Exception ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            /**
-             * Buscamo en la base los datos del usuario
-             */
-            if (usuario.equals("") && contraseña.equals("")) {
+
+            if (usuario.equals("") || contraseña.equals("")) {
                 out.println("<script> alert('Usuario y/o contraseña incorrectos'); </script>");
                 out.println("<script>location.replace('/SmartLifeWeb/Modulos/InicioSesion/Ingresar.html');</script>");
-                con.close();
             } else {
-                rs = sta.executeQuery("SELECT idUsuario,contraseña,Nombre FROM usuario WHERE idUsuario ='" + usuario + "'");
+                rs = conexion.buscar(sta, usuario);
             }
-
-            /**
-             *
-             */
             while (rs.next()) {
                 user = rs.getString("idUsuario");
                 contra = rs.getString("contraseña");
                 nombre = rs.getString("Nombre");
             }
             if (contraseña.equals(contra) && usuario.equals(user)) {
-                request.setAttribute("Nombre", nombre);
-                request.getRequestDispatcher("/cascaron.jsp").forward(request, response);
-                con.close();
+                HttpSession sesion = request.getSession();
+                //sesion.invalidate();
+                sesion.setAttribute("idUsuario", user);
+                sesion.setAttribute("Nombre", nombre);
+                out.println("<script>location.replace('/SmartLifeWeb/cascaron.jsp');</script>");
+                
             } else {
                 out.println("<script> alert('Usuario y/o contraseña incorrectos'); </script>");
                 out.println("<script>location.replace('/SmartLifeWeb/Modulos/InicioSesion/Ingresar.html');</script>");
-                con.close();
+
             }
+            con.close();
         } catch (SQLException error) {
             out.print(error.toString());
+        } catch (Exception ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

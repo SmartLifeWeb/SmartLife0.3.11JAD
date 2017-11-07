@@ -15,21 +15,21 @@
                 <hr>
                 <br>
                 <form action="/SmartLifeWeb/ServletRegistro" method="GET">
-                    <input class="text" type="text" placeholder="Nombre" name="nombre" id="nombre" maxlength="40" onkeypress="return ValidNombre(event)" oninput="validLong(this)" required/>
+                    <input class="text" type="text" placeholder="Nombre" name="nombre" id="nombre" maxlength="40" onkeypress="return ValidNombre(event)" oninput="validLong(this)" required autofocus />
                     <br><br>
-                    <input class="text" type="text" placeholder="Apellido paterno" name="a_paterno" id="apat" maxlength="25"  onkeypress="return apellidos(event)" oninput="validLong(this)" required/>
+                    <input class="text" type="text" placeholder="Apellido paterno" name="a_paterno" id="apat" maxlength="25"  onkeypress="return apellidos(event)" oninput="validLong(this)" required onfocus />
                     <br><br>
-                    <input class="text" type="text" placeholder="Apellido Materno" name="a_materno" id="amat" maxlength="25"  onkeypress="return apellidos(event)" oninput="validLong(this)" required/>
+                    <input class="text" type="text" placeholder="Apellido Materno" name="a_materno" id="amat" maxlength="25"  onkeypress="return apellidos(event)" oninput="validLong(this)" required onfocus/>
                     <br><br>
-                    <input class="text" type="text" placeholder="Usuario" name="user" id="user" maxlength="25" onkeypress="return ValidUser(event)" oninput="validLong(this)" required/>
+                    <input class="text" type="text" placeholder="Usuario" name="user" id="user" maxlength="25" onkeypress="return ValidUser(event)" oninput="validLong(this)" required onfocus/>
                     <br><br>
-                    <input class="text" type="text" placeholder="Correo Electronico" name="correo" id="email" maxlength="75" oninput="ValidEmail(this)"  required/>
+                    <input class="text" type="text" placeholder="Correo Electronico" name="correo" id="email" maxlength="75" oninput="ValidEmail(this)"  required onfocus/>
                     <br><br>
-                    <input class="text" type="text" placeholder="Telefono" name="telefono" id="tel" maxlength="15"  onkeypress="return Numeros(event)" oninput="validLong(this)" required/>
+                    <input class="text" type="text" placeholder="Telefono" name="telefono" id="tel" maxlength="15"  onkeypress="return Numeros(event)" oninput="validLong(this)" required onfocus/>
                     <br><br>
-                    <input class="text" type="password" id="Contra" placeholder="Contraseña" name="contrasena" maxlength="25" oninput="validLong(this)" required/>
+                    <input class="text" type="password" id="Contra" placeholder="Contraseña" name="contrasena" maxlength="25" oninput="validLong(this)" required onfocus/>
                     <br><br>
-                    <input class="text" type="password" id="Confirmar" placeholder="Confirmar contraseña" maxlength="25" oninput="ValidPass(this)" required/>
+                    <input class="text" type="password" id="Confirmar" placeholder="Confirmar contraseña" maxlength="25" oninput="ValidPass(this)" required onfocus/>
                     <br><br>
                     <select name="rol" id="rol">
                         <option value="1">Profesionista</option>
@@ -44,6 +44,8 @@
                     <br>
                     <br>
                     <p class="befound">Al registrarte, aceptas las <a href="google.com" class="legal-link">Condiciones de Servicio y la Politicas de Privacidad</a>.</p>
+                    <p class="befound">¿Ya tienes cuenta? <a href="Ingresar.html" class="legal-link">Inicia Sesión</a>.</p>
+                    
                 </div>
 
 
